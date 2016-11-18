@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>HueWheel</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link type="text/css" rel="stylesheet" href="assets/jquery-wheelcolorpicker-2.5.1/css/wheelcolorpicker.dark.css" />
+	<link href="assets/index.css" rel="stylesheet" media="screen">
+	<link rel="icon" type="image/png" href="assets/icon.png">
+
+	<meta name="description" content="A web application for controlling a Phillips Hue bridge on a local network" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+</head>
+<body class="hidden">
+
+	<div id="container">
+
+		<div id="wheels"></div>
+
+
+		<p class='toggle'><a href="#">Presets &amp; Settings</a></p>
+
+		<p>
+			<select id="preset" class="empty">
+				<option value="">- Select a preset -</option>
+			</select>
+			<input type="submit" id="addPreset" value="Add Preset" />
+			<input type="submit" id="removePreset" value="Remove Preset" />
+		</p>
+
+		<p>
+			<input type="submit" id="change" value="Change transition time" />
+		</p>
+
+		<p>
+			<input type="submit" id="addGroup" value="Add Group" />
+			<input type="submit" id="removeGroup" value="Remove Group" />
+		</p>
+
+		<p><input type="submit" id="reset" value="Reset to starting configuration" /></p>
+	</div>
+
+	<footer>
+		Made by <a href="http://www.tuurlievens.net/">Tuur Lievens</a>. This project is hosted on <a href="https://www.github.com/">Github</a>
+	</footer>
+
+    <!-- Scripts -->
+	<script src="assets/js/jquery-3.1.1.min.js"></script>
+	<script src="assets/js/js.cookie-2.1.3.min.js"></script>
+	<script src="assets/jquery-wheelcolorpicker-2.5.1/jquery.wheelcolorpicker-2.5.1.min.js"></script>
+	<script src="assets/js/login.js"></script>
+	<script src="assets/js/scripts.js"></script>
+
+	<div id="wheeltemplate">
+		<span class="name"></span>
+		<input type="text" class="wheel" />
+		<input type="submit" class="off" value="Off" />
+	</div>
+
+</body>
+</html>

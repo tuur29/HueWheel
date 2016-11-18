@@ -1,0 +1,102 @@
+
+body {
+	background-color: #000;
+	font-family: sans-serif;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+}
+
+#container {
+	min-height: calc(100vh - 100px);
+	text-align: center;
+	margin: 30px 5%;
+}
+
+#wheels {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.lights,
+.groups {
+	display: block;
+	margin: 30px auto;
+	padding: 0 20px;
+}
+
+.lights > *,
+.groups > * {
+	display: inline-block;
+}
+
+span.name {
+	width: 80px;
+	text-align: right;
+	overflow-wrap: break-word;
+	vertical-align: middle;
+}
+
+
+/* EXTRA */
+
+.toggle {
+	width: 100%;
+}
+
+.toggle a {
+	color: inherit;
+}
+
+input {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+select {
+	display: block;
+	clear: both;
+	margin: 10px auto;
+}
+
+input[type=submit]:hover {
+	text-decoration: underline;
+}
+
+input[type=submit] {
+	outline: none;
+	border: none;
+	cursor: pointer;
+	background: none;
+	color: inherit;
+}
+
+footer {
+	height: 20px;
+	font-size: 12px;
+	padding: 0 30px;
+	text-align: right;
+}
+
+footer a {
+	color: inherit;
+}
+
+
+/* jQWCP */
+
+.jQWCP-block {
+	outline: none !important;
+	border: none !important;
+	box-shadow: none !important;
+	background: none !important;
+	vertical-align: middle;
+}
+
+
+body.hidden > *,
+#preset.empty,
+#wheeltemplate,
+.toggle ~ * {
+	display: none;
+}

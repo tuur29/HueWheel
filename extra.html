@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>HueWheel Extra</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" type="image/png" href="assets/icon.png">
+
+	<meta name="description" content="A web application for controlling a Phillips Hue bridge on a local network" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<style type="text/css" media="screen">
+
+		body {
+			font-family: sans-serif;
+			margin: 0;
+		}
+
+		body.hidden > * { display: none;  }
+
+		#buttons {
+			float: left;
+			margin: 0 2em 0 1em;
+		}
+
+		#output {
+			box-sizing: border-box;
+			margin: 0;
+			padding-top: 2em;
+			max-height: 100vh;
+			overflow: auto;
+		}
+
+	</style>
+
+</head>
+<body class="hidden">
+
+	<div id="buttons">
+		<h1>Extra</h1>
+		<p><input type="submit" id="removeSchedule" value="Remove a schedule" /></p>
+		<p><input type="submit" id="removeSchedules" value="Remove all schedules" /></p>
+		<p><input type="submit" id="removeUser" value="Remove a user" /></p>
+		<p><input type="submit" id="removeCookies" value="Clear app cookies" /></p>
+	</div>
+
+	<pre id="output"></pre>
+
+    <!-- Scripts -->
+	<script src="assets/js/jquery-3.1.1.min.js"></script>
+	<script src="assets/js/js.cookie-2.1.3.min.js"></script>
+	<script src="assets/js/login.js"></script>
+
+	<script>
+
+	function run() {
+
+		parseConfig(config);
+
+		// Event Handlers
+
+		$('#removeSchedule').on('click', function(e) {
+			var ids = prompt("Which schedules do you want to remove (eg. 1,2,3)","");
+			if (ids != null) {
+				ids = ids.split(",");
+
+				for (i in ids) {
+					removeSchedule(ids[i]);
+				}
+			}
+		});
+
+		$('#removeSchedules').on('click', function(e) {
+			for (i in config.schedules) {
+				removeSchedule(i);
+			}
+		});
+
+		$('#removeUser').on('click', function(e) {
+			var ids = prompt("Which users do you want to remove (eg. id1,id2,id3)","");
+			if (ids != null) {
+				ids = ids.split(",");
+
+				for (i in ids) {
+					removeUser(ids[i]);
+				}
+			}
+		});
+
+		$('#removeCookies').on('click', function(e) {
+			Cookies.remove('ip');
+			Cookies.remove('id');
+			Cookies.remove('transitionTime');
+		});
+
+		// Functions
+
+		function removeSchedule(i) {
+			$.ajax({
+				url: 'http://'+ip+'/api/'+id+'/schedules/'+i,
+				type: 'DELETE',
+				success: function(data) {
+					getConfig();
+				}
+			});
+		}
+
+		function removeUser(i) {
+			$.ajax({
+				url: 'http://'+ip+'/api/'+id+'/config/whitelist/'+i,
+				type: 'DELETE',
+				success: function(data) {
+					getConfig();
+				}
+			});
+		}
+
+		// Helpers
+
+		function getConfig() {
+			$.ajax({
+				url: 'http://'+ip+'/api/'+id+'/',
+				type: 'GET',
+				success: function(data) {
+					parseConfig(data);
+				}
+			});
+		}
+
+		function parseConfig(data) {
+			$("#output").text(JSON.stringify(data, null, '\t'));
+		}
+	}
+
+	</script>
+
+</body>
+</html>
