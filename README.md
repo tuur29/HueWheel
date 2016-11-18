@@ -1,5 +1,5 @@
 
-# ![Logo](https://raw.github.com/tuur29/HueWheel/raw/master/assets/icon.png "Logo") HueWheel
+# ![Logo](https://raw.githubusercontent.com/tuur29/HueWheel/master/assets/icon.png "Logo") HueWheel
 
 This is a simple (and shoddily coded) web application to control Phillips hue lights via the Hue Bridge.
 
