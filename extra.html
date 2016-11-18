@@ -41,6 +41,7 @@
 		<h1>Extra</h1>
 		<p><input type="submit" id="removeSchedule" value="Remove a schedule" /></p>
 		<p><input type="submit" id="removeSchedules" value="Remove all schedules" /></p>
+		<p><input type="submit" id="addUser" value="Add a user" /></p>
 		<p><input type="submit" id="removeUser" value="Remove a user" /></p>
 		<p><input type="submit" id="removeCookies" value="Clear app cookies" /></p>
 	</div>
@@ -77,6 +78,15 @@
 			}
 		});
 
+		$('#addUser').on('click', function(e) {
+			var name = prompt("Please enter a new username like application#device and press the Hue link button","web#"+Math.floor(Date.now()/1000));
+
+			if (name != null && name != "") {
+				addUserAJAX(name);
+			}
+
+		});
+
 		$('#removeUser').on('click', function(e) {
 			var ids = prompt("Which users do you want to remove (eg. id1,id2,id3)","");
 			if (ids != null) {
@@ -102,6 +112,26 @@
 				type: 'DELETE',
 				success: function(data) {
 					getConfig();
+				}
+			});
+		}
+
+		function addUserAJAX(name) {
+			$.ajax({
+				url: 'http://'+ip+'/api/',
+				type: 'POST',
+				data: '{"devicetype": "'+name+'"}',
+				success: function(data) {
+					if (typeof data[0].success != 'undefined') {
+						prompt("This is your hue username",data[0].success.username);
+						getConfig();
+
+					} else {
+						var pressed = confirm("Have you pressed the Hue link button?");
+						if (pressed)
+							addUserAJAX(name);
+					}
+
 				}
 			});
 		}
