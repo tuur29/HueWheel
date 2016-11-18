@@ -16,7 +16,7 @@ function getIp() {
 			},
 			complete: function() {
 				tmpIp = prompt("Please enter your hue bridge ip", tmpIp);
-				if (tmpIp != null) {
+				if (tmpIp != "") {
 					ip = tmpIp;
 					getId();
 				} else {
@@ -45,7 +45,7 @@ function getId() {
 			getIdAjax();
 		} else {
 			tmpId = prompt("Please enter your user id", tmpId);
-			if (tmpId != null) {
+			if (tmpId != "") {
 				id = tmpId;
 				checkCredentials();
 			} else {
