@@ -17,8 +17,10 @@ function getIp() {
 			complete: function() {
 				tmpIp = prompt("Please enter your hue bridge ip", tmpIp);
 				if (tmpIp != "") {
-					ip = tmpIp;
-					getId();
+						if (tmpIp != null) {
+						ip = tmpIp;
+						getId();
+					}
 				} else {
 					getIp();
 				}
@@ -46,8 +48,10 @@ function getId() {
 		} else {
 			tmpId = prompt("Please enter your user id", tmpId);
 			if (tmpId != "") {
-				id = tmpId;
-				checkCredentials();
+				if (tmpId != null) {
+					id = tmpId;
+					checkCredentials();
+				}
 			} else {
 				getId();
 			}
@@ -68,7 +72,6 @@ function getIdAjax() {
 		type: 'POST',
 		data: '{"devicetype": "HueWheel#'+Math.floor(Date.now()/1000)+'"}',
 		success: function(data) {
-			console.log(data);
 			if (typeof data[0].success != 'undefined') {
 				id = data[0].success.username;
 				checkCredentials();
