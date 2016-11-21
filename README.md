@@ -12,7 +12,7 @@ There is also an extra.html file where you can debug and run certain functions (
 ======
 
 **You can now use the application without hosting it yourself at: http://tuur29.github.io/HueWheel**
-**(make sure it's not using https!)**
+**(make sure you let unsafe scripts run!)**
 
 ## Credits
 fujaru's [Wheel Color Picker Plugin for jQuery](https://github.com/fujaru/jquery-wheelcolorpicker)
