@@ -5,7 +5,14 @@ getIp();
 
 function getIp() {
 
-	if ( typeof Cookies.get('ip') == 'undefined' ) {
+	if ( typeof Cookies.get('hue_ip') == 'undefined' ) {
+
+		if (location.search.match(/\?(ip*=.*&)?(id)*=.*(&ip*=.*)?/) && location.search.match(/ip=.*/)) {
+			ip = getValue(location.search,"ip");
+			getId();
+			return;
+		}
+
 		var tmpIp = "";
 
 		$.ajax({
@@ -28,7 +35,7 @@ function getIp() {
 		});
 
 	} else {
-		ip = Cookies.get('ip');
+		ip = Cookies.get('hue_ip');
 		getId();
 	}
 
@@ -37,29 +44,37 @@ function getIp() {
 
 function getId() {
 
-	if ( typeof Cookies.get('id') == 'undefined' ) {
+	if ( typeof Cookies.get('hue_id') == 'undefined' ) {
 
-		var tmpId;
-		var auto = confirm("You you want to make a new user for this application on your hue bridge?");
+		if (location.search.match(/\?(ip*=.*&)?(id)*=.*(&ip*=.*)?/)) {
 
-		if (auto) {
-			alert("Please press the Hue link button");
-			getIdAjax();
+			id = getValue(location.search,"id");
+			checkCredentials();
+
 		} else {
-			tmpId = prompt("Please enter your user id", tmpId);
-			if (tmpId != "") {
-				if (tmpId != null) {
-					id = tmpId;
-					checkCredentials();
-				}
+
+			var tmpId;
+			var auto = confirm("You you want to make a new user for this application on your hue bridge?");
+
+			if (auto) {
+				alert("Please press the Hue link button");
+				getIdAjax();
 			} else {
-				getId();
+				tmpId = prompt("Please enter your user id", tmpId);
+				if (tmpId != "") {
+					if (tmpId != null) {
+						id = tmpId;
+						checkCredentials();
+					}
+				} else {
+					getId();
+				}
 			}
+
 		}
 
-
 	} else {
-		id = Cookies.get('id');
+		id = Cookies.get('hue_id');
 		checkCredentials();
 	}
 
@@ -89,6 +104,11 @@ function getIdAjax() {
 
 }
 
+function getValue(arr, name) {
+	var str = arr.split(/\?|=|&/);
+	return str[str.indexOf(name)+1];
+}
+
 
 function checkCredentials() {
 
@@ -101,8 +121,8 @@ function checkCredentials() {
 					config = data;
 					$("body").removeClass('hidden');
 
-					Cookies.set('ip', ip);
-					Cookies.set('id', id);
+					Cookies.set('hue_ip', ip, {expires: 99999});
+					Cookies.set('hue_id', id, {expires: 99999});
 
 					run();
 				} else {
@@ -122,9 +142,9 @@ function checkCredentialsRetry() {
 	var retry = confirm("Wrong credentials. Do you want to reset them and try again?");
 	if (retry) {
 		ip = "";
-		Cookies.remove('ip');
+		Cookies.remove('hue_ip');
 		id = "";
-		Cookies.remove('id');
+		Cookies.remove('hue_id');
 		getIp();
 	}
 }

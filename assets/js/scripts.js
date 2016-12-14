@@ -1,6 +1,6 @@
 
 var groupFilter = ["HPMusicGroup"];
-var transitionTime = typeof Cookies.get('transitionTime') == 'undefined' ? 4 : Cookies.get('transitionTime');
+var transitionTime = typeof Cookies.get('hue_transitionTime') == 'undefined' ? 4 : Cookies.get('hue_transitionTime');
 
 // APP
 
@@ -235,7 +235,7 @@ function run() {
 		var ms = parseInt( prompt("Please enter the amount of 100ms a transition should take",transitionTime) );
 		if (Number.isInteger(ms)) {
 			transitionTime = ms;
-			Cookies.set('transitionTime',transitionTime);
+			Cookies.set('hue_transitionTime',transitionTime);
 		}
 	});
 
