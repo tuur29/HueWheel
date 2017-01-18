@@ -147,7 +147,7 @@ function run() {
 	});
 
 	$('#removePreset').on('click', function(e){
-		var name = prompt("Please give the name of this new preset");
+		var name = prompt("Please give the name of the preset to remove");
 		var value = $('#preset option:contains("'+name+'")').first().val();
 
 		if (typeof value == 'undefined') {
@@ -210,7 +210,7 @@ function run() {
 	});
 
 	$('#removeGroup').on('click', function(e){
-		var name = prompt("Please give the name of this new preset");
+		var name = prompt("Please give the name of the group to remove");
 		var spanParent = $('#wheels span.name:contains("'+name+'")').first().parents().first();
 
 		if (typeof spanParent == 'undefined') {
@@ -337,4 +337,3 @@ function setBackground(color) {
 function parseToHSV(data) {
 	return "hsv(" + Math.round(360*data.hue/65280) +","+ data.sat/255 +","+ data.bri/255 +")";
 }
-
