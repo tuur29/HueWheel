@@ -24,6 +24,14 @@
 			margin: 0 2em 0 1em;
 		}
 
+		#buttons button { background-color: inherit; }
+
+		#buttons p:last-of-type {
+			width: 130px;
+			font-size: 12px;
+			word-break: break-all;
+		}
+
 		#output {
 			box-sizing: border-box;
 			margin: 0;
@@ -76,12 +84,18 @@
 		// Setup
 		$("#console").attr("src", "http://"+ip+"/debug/clip.html");
 		parseConfig(config);
-
-		var clock;
-		setClock();
+		$("#buttons").append("<p><u>DevID:</u> "+id+"</p>");
 
 
 		// Event Handlers
+
+		var last = Date.now();;
+		$("#console").on("mouseover mouseleave focus blur", function(e) {
+			if (Date.now() - last > 1500) {
+				last = Date.now();
+				getConfig();
+			}
+		});
 
 		$('#refreshOutput').on('click', function(e) {
 			getConfig();
@@ -173,16 +187,6 @@
 			});
 		}
 
-		function setClock() {
-
-			var time = 2000;
-			setTimeout(function(){
-				clock = setInterval(function(){
-					getConfig();
-				},time);
-			},time);
-		}
-
 		// Helpers
 
 		function getConfig() {
@@ -191,6 +195,7 @@
 				type: 'GET',
 				success: function(data) {
 					parseConfig(data);
+					blinkRefresh();
 				}
 			});
 		}
@@ -198,6 +203,14 @@
 		function parseConfig(data) {
 			$("#output").text(JSON.stringify(data, null, '\t'));
 		}
+
+		function blinkRefresh() {
+			$("#refreshOutput").css({backgroundColor: "red"});
+			setTimeout(function(){
+				$("#refreshOutput").removeAttr("style");
+			}, 200);
+		}
+
 	}
 
 	</script>
