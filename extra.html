@@ -41,18 +41,6 @@
 			float: left;
 		}
 
-		#console {
-			position: fixed;
-			right: 0;
-			min-height: 830px;
-			min-width: 600px;
-			border: none;
-		}
-
-		@media (max-width: 1300px) {
-			#console { position: static; }
-		}
-
 	</style>
 
 </head>
@@ -66,11 +54,11 @@
 		<p><input type="submit" id="addUser" value="Add a user" /></p>
 		<p><input type="submit" id="removeUser" value="Remove a user" /></p>
 		<p><input type="submit" id="removeCookies" value="Clear app cookies" /></p>
+		<p><a id="console" href="#">Link to console</a></p>
+		<p><a id="permalink" href="#">Permalink to this session</a></p>
 	</div>
 
 	<pre id="output"></pre>
-
-	<iframe id="console"></iframe>
 
 	<!-- Scripts -->
 	<script src="assets/js/jquery-3.1.1.min.js"></script>
@@ -82,20 +70,12 @@
 	function run() {
 
 		// Setup
-		$("#console").attr("src", "http://"+ip+"/debug/clip.html");
+		$("#console").attr("href", "http://"+ip+"/debug/clip.html");
 		parseConfig(config);
 		$("#buttons").append("<p><u>DevID:</u> "+id+"</p>");
 
 
 		// Event Handlers
-
-		var last = Date.now();;
-		$("#console").on("mouseover mouseleave focus blur", function(e) {
-			if (Date.now() - last > 1500) {
-				last = Date.now();
-				getConfig();
-			}
-		});
 
 		$('#refreshOutput').on('click', function(e) {
 			getConfig();
@@ -215,5 +195,8 @@
 
 	</script>
 
+	<script>
+		if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
+	</script>
 </body>
 </html>

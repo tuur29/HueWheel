@@ -124,6 +124,12 @@ function checkCredentials() {
 					Cookies.set('hue_ip', ip, {expires: 99999});
 					Cookies.set('hue_id', id, {expires: 99999});
 
+
+					var url = new URL(window.location.href);
+					url.searchParams.set('id', id);
+					url.searchParams.set('ip', ip);
+					$("#permalink").attr("href", url)
+
 					run();
 				} else {
 					checkCredentialsRetry();

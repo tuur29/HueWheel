@@ -1,0 +1,13 @@
+{
+    "name": "HueWheel",
+    "icons": [
+        {
+            "src": "assets/icon.png"
+        }
+    ],
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "start_url": "./",
+    "background_color": "#000000",
+    "theme_color": "#000000"
+}

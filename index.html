@@ -6,6 +6,7 @@
 	<link type="text/css" rel="stylesheet" href="assets/jquery-wheelcolorpicker-2.5.1/css/wheelcolorpicker.dark.css" />
 	<link href="assets/index.css" rel="stylesheet" media="screen">
 	<link rel="icon" type="image/png" href="assets/icon.png">
+	<link rel="manifest" href="./manifest.webmanifest">
 
 	<meta name="description" content="A web application for controlling a Phillips Hue bridge on a local network" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,6 +43,7 @@
 	</div>
 
 	<footer>
+		<p><a id="permalink" href="#">Permalink to this session</a></p>
 		Made by <a href="http://www.tuurlievens.net/">Tuur Lievens</a>. This project is hosted on <a href="https://www.github.com/">Github</a>
 	</footer>
 
@@ -58,5 +60,8 @@
 		<input type="submit" class="off" value="Off" />
 	</div>
 
+	<script>
+		if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
+	</script>
 </body>
 </html>
